@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Nesty by gugemichael</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Nesty</h1>
+      <h2 class="project-tagline">Http RESTful api implemention on Netty async io</h2>
+      <a href="https://github.com/gugemichael/nesty" class="btn">View on GitHub</a>
+      <a href="https://github.com/gugemichael/nesty/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/gugemichael/nesty/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="nesty" class="anchor" href="#nesty" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Nesty</h1>
+
+<p>Http RESTful Api implemention on Netty async io</p>
+
+<h2>
+<a id="lastest-version" class="anchor" href="#lastest-version" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Lastest version</h2>
+
+<p>0.0.2</p>
+
+<h2>
+<a id="changeslog" class="anchor" href="#changeslog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>changeslog</h2>
+
+<p>0.0.2</p>
+
+<ul>
+<li>support http long connection(Connection: keep-alive)</li>
+<li>support root path (uri path is /) stats and counter information</li>
+</ul>
+
+<p>0.0.1 </p>
+
+<ul>
+<li>original snapshot version</li>
+</ul>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Http HTTP/1.1 protocol support </li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>GET</th>
+<th>POST</th>
+<th>UPDATE</th>
+<th>DELETE</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<ul>
+<li>Http Restful serialized (usually as json) in string body (With Gson)</li>
+<li>Http Short Connection on async mode by default (With Netty 4.2)</li>
+<li>Http request mapping variable support</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>From</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/Header" class="user-mention">@Header</a></td>
+<td>http header</td>
+</tr>
+<tr>
+<td>@RequestParam</td>
+<td>http url query string or http body key value pairs</td>
+</tr>
+<tr>
+<td>@PathVariabl</td>
+<td>http uri path vairable with {path}</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Body" class="user-mention">@Body</a></td>
+<td>http body</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>Http request mapping method params type support</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Class Type</th>
+<th>Default value (require = false is set)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int,short,long</td>
+<td>0</td>
+<td>primitive</td>
+</tr>
+<tr>
+<td>float,double</td>
+<td>0.0d</td>
+<td>primitive</td>
+</tr>
+<tr>
+<td>String</td>
+<td>null</td>
+<td>string value</td>
+</tr>
+<tr>
+<td>Enum</td>
+<td>null</td>
+<td>enum class type</td>
+</tr>
+<tr>
+<td>Class</td>
+<td>null</td>
+<td>from http body serializer parsed</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TODO</h2>
+
+<ul>
+<li>Long connection support (require explict Connection: Keep-Alive header set)</li>
+<li>Spring or Mybatis intergrated</li>
+</ul>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<ul>
+<li>Simplest http server</li>
+</ul>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">SimpleHttpServer</span> {
+
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>) <span class="pl-k">throws</span> <span class="pl-smi">ControllerRequestMappingException</span> {
+        <span class="pl-smi">AsyncServerProvider</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>port(<span class="pl-c1">8080</span>)<span class="pl-k">.</span>service(<span class="pl-smi">NestyProtocol</span><span class="pl-c1"><span class="pl-k">.</span>HTTP</span>)
+            .scanHttpController(<span class="pl-s"><span class="pl-pds">"</span>org.nesty.example.httpserver.handler<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>start();
+    }
+}</pre></div>
+
+<ul>
+<li>Normal http server</li>
+</ul>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> main(<span class="pl-k">String</span>[] args) {
+
+    <span class="pl-c">// 1. build httpserver</span>
+    <span class="pl-smi">NestyServer</span> server <span class="pl-k">=</span> <span class="pl-smi">AsyncServerProvider</span><span class="pl-k">.</span>builder()<span class="pl-k">.</span>port(<span class="pl-c1">8080</span>)<span class="pl-k">.</span>service(<span class="pl-smi">NestyProtocol</span><span class="pl-c1"><span class="pl-k">.</span>HTTP</span>);
+
+    <span class="pl-c">// 2. choose http params. this is unnecessary</span>
+    server<span class="pl-k">.</span>option(<span class="pl-smi">NestyOptions</span><span class="pl-c1"><span class="pl-k">.</span>IO_THREADS</span>, <span class="pl-smi">Runtime</span><span class="pl-k">.</span>getRuntime()<span class="pl-k">.</span>availableProcessors())
+          .option(<span class="pl-smi">NestyOptions</span><span class="pl-c1"><span class="pl-k">.</span>WORKER_THREADS</span>, <span class="pl-c1">128</span>)
+          .option(<span class="pl-smi">NestyOptions</span><span class="pl-c1"><span class="pl-k">.</span>TCP_BACKLOG</span>, <span class="pl-c1">1024</span>)
+          .option(<span class="pl-smi">NestyOptions</span><span class="pl-c1"><span class="pl-k">.</span>TCP_NODELAY</span>, <span class="pl-c1">true</span>);
+
+    <span class="pl-c">// 3. scan defined controller class with package name</span>
+    server<span class="pl-k">.</span>scanHttpController(<span class="pl-s"><span class="pl-pds">"</span>com.nesty.test.neptune<span class="pl-pds">"</span></span>)
+          .scanHttpController(<span class="pl-s"><span class="pl-pds">"</span>com.nesty.test.billing<span class="pl-pds">"</span></span>)
+          .scanHttpController(<span class="pl-s"><span class="pl-pds">"</span>org.nesty.example.httpserver.handler<span class="pl-pds">"</span></span>);
+
+    <span class="pl-c">// 4. start http server</span>
+    <span class="pl-k">if</span> (<span class="pl-k">!</span>server<span class="pl-k">.</span>start())
+        <span class="pl-smi">System</span><span class="pl-k">.</span>err<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>NestServer run failed<span class="pl-pds">"</span></span>);
+
+    <span class="pl-k">try</span> {
+        <span class="pl-c">// join and wait here</span>
+        server<span class="pl-k">.</span>join();
+        server<span class="pl-k">.</span>shutdown();
+    } <span class="pl-k">catch</span> (<span class="pl-smi">InterruptedException</span> ignored) {
+    }
+}</pre></div>
+
+<ul>
+<li>Controlloer</li>
+</ul>
+
+<div class="highlight highlight-source-java"><pre>@<span class="pl-smi">Controller</span>
+@RequestMapping(<span class="pl-s"><span class="pl-pds">"</span>/projects<span class="pl-pds">"</span></span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ServiceController</span> {
+
+    <span class="pl-k">@RequestMapping</span>(<span class="pl-c1">value</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>/{projectId}<span class="pl-pds">"</span></span>, <span class="pl-c1">method</span> <span class="pl-k">=</span> <span class="pl-smi">RequestMethod</span><span class="pl-c1"><span class="pl-k">.</span>GET</span>)
+    <span class="pl-k">public</span> <span class="pl-smi">ServiceResponse</span> <span class="pl-en">getProjectById</span>(<span class="pl-k">@PathVariable</span>(<span class="pl-s"><span class="pl-pds">"</span>projectId<span class="pl-pds">"</span></span>) <span class="pl-smi">Integer</span> <span class="pl-v">projectId</span>) {
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>getProjectById() projectId <span class="pl-pds">"</span></span> <span class="pl-k">+</span> projectId);
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">ServiceResponse</span>();
+    }
+}
+</pre></div>
+
+<ul>
+<li>Interceptor</li>
+</ul>
+
+<div class="highlight highlight-source-java"><pre>@<span class="pl-smi">org.nesty.commons.annotations<span class="pl-k">.</span>Interceptor</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ServiceInterceptor</span> <span class="pl-k">extends</span> <span class="pl-e">Interceptor</span> {
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">boolean</span> <span class="pl-en">filter</span>(<span class="pl-k">final</span> <span class="pl-smi">HttpContext</span> <span class="pl-v">context</span>) {
+
+        <span class="pl-c">// count the request</span>
+        totalRequest<span class="pl-k">.</span>incrementAndGet();
+
+        <span class="pl-c">// show remote address</span>
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>context<span class="pl-k">.</span>getRemoteAddress()<span class="pl-k">.</span>isEmpty())
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-smi">String</span><span class="pl-k">.</span>format(<span class="pl-s"><span class="pl-pds">"</span>request from client %s<span class="pl-pds">"</span></span>, context<span class="pl-k">.</span>getRemoteAddress()));
+
+        <span class="pl-c">// reject some one which is not we want</span>
+        <span class="pl-k">if</span> (context<span class="pl-k">.</span>getRemoteAddress()<span class="pl-k">.</span>equals(<span class="pl-s"><span class="pl-pds">"</span>192.168.1.1<span class="pl-pds">"</span></span>))
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+
+        <span class="pl-c">// reject request from agent like curl</span>
+        <span class="pl-k">if</span> (context<span class="pl-k">.</span>getHttpHeaders()<span class="pl-k">.</span>containsKey(<span class="pl-s"><span class="pl-pds">"</span>User-Agent<span class="pl-pds">"</span></span>))
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+
+        <span class="pl-c">// OK</span>
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }   
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">DefaultFullHttpResponse</span> <span class="pl-en">handler</span>(<span class="pl-k">final</span> <span class="pl-smi">HttpContext</span> <span class="pl-v">context</span>, <span class="pl-smi">DefaultFullHttpResponse</span> <span class="pl-v">response</span>) {
+
+        <span class="pl-c">// compress content if client support</span>
+        <span class="pl-k">if</span> (<span class="pl-s"><span class="pl-pds">"</span>gzip<span class="pl-pds">"</span></span><span class="pl-k">.</span>equalsIgnoreCase(context<span class="pl-k">.</span>getHttpHeaders()<span class="pl-k">.</span>get(<span class="pl-s"><span class="pl-pds">"</span>Accept-Encoding<span class="pl-pds">"</span></span>))) {
+            <span class="pl-c">// compress the body</span>
+            <span class="pl-smi">ByteBuf</span> compressContent <span class="pl-k">=</span> compressWithGzip(response<span class="pl-k">.</span>content());
+            <span class="pl-smi">DefaultFullHttpResponse</span> newResponse <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">DefaultFullHttpResponse</span>(<span class="pl-smi">HttpVersion</span><span class="pl-c1"><span class="pl-k">.</span>HTTP_1_1</span>, <span class="pl-smi">HttpResponseStatus</span><span class="pl-c1"><span class="pl-k">.</span>OK</span>, compressContent);
+            response <span class="pl-k">=</span> newResponse;
+        }   
+
+        <span class="pl-c">// add more header</span>
+        response<span class="pl-k">.</span>headers()<span class="pl-k">.</span>add(<span class="pl-s"><span class="pl-pds">"</span>NestyInceptor<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Nesty is Good<span class="pl-pds">"</span></span>);
+
+        <span class="pl-k">return</span> response;
+    }   
+}
+
+
+
+<span class="pl-smi">More</span> examples. <span class="pl-smi">Please</span> visit https<span class="pl-k">:</span><span class="pl-c">//github.com/gugemichael/nesty/wiki/More-Examples</span>
+
+## <span class="pl-smi">Threads</span> <span class="pl-smi">Model</span>
+
+<span class="pl-k">*</span> <span class="pl-smi">Netty</span> Bootstrap(io threads) <span class="pl-k">+</span> ThreadPool(logic threads)
+
+<span class="pl-k">!</span>[screenshot](http<span class="pl-k">:</span><span class="pl-c">//img1.tbcdn.cn/L1/461/1/40ef4fb553fb9b565ddf79989a6f17877dcb3de7)</span>
+
+## <span class="pl-smi">Performance</span>
+
+java <span class="pl-k">-</span>server <span class="pl-k">-</span><span class="pl-smi">Xmx4G</span> <span class="pl-k">-</span><span class="pl-smi">Xms4G</span> <span class="pl-k">-</span><span class="pl-smi">Xmn1536M</span> <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-k">+</span><span class="pl-smi">UseConcMarkSweepGC</span> <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-k">+</span><span class="pl-smi">UseParNewGC</span> <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-smi">PermSize</span><span class="pl-k">=</span>256m <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-smi">MaxPermSize</span><span class="pl-k">=</span>256m <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-k">+</span><span class="pl-smi">DisableExplicitGC</span>
+
+<span class="pl-smi">Http</span> <span class="pl-k">short</span> connection
+<span class="pl-k">*</span> <span class="pl-smi">Conccurent</span> <span class="pl-k">:</span> <span class="pl-c1">512</span> http connections 
+<span class="pl-k">*</span> <span class="pl-smi">Qps</span> <span class="pl-k">:</span> <span class="pl-c1">40</span>,<span class="pl-c1">000</span><span class="pl-k">+</span>
+<span class="pl-k">*</span> <span class="pl-smi">Latency</span> <span class="pl-k">:</span> <span class="pl-k">&lt;</span> 10ms
+
+<span class="pl-smi">Http</span> <span class="pl-k">long</span> connection (<span class="pl-smi">Connection</span><span class="pl-k">:</span> keep<span class="pl-k">-</span>alive)
+<span class="pl-k">*</span> <span class="pl-smi">Conccurent</span> <span class="pl-k">:</span> <span class="pl-c1">512</span> http connections 
+<span class="pl-k">*</span> <span class="pl-smi">Qps</span> <span class="pl-k">:</span> <span class="pl-c1">80</span>,<span class="pl-c1">000</span> <span class="pl-k">~</span> <span class="pl-c1">100</span>,<span class="pl-c1">000</span>
+<span class="pl-k">*</span> <span class="pl-smi">Latency</span> <span class="pl-k">:</span> <span class="pl-k">&lt;</span> 50ms
+
+detail <span class="pl-k">:</span> https<span class="pl-k">:</span><span class="pl-c">//github.com/gugemichael/nesty/wiki/Performance-Detail</span>
+</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/gugemichael/nesty">Nesty</a> is maintained by <a href="https://github.com/gugemichael">gugemichael</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
