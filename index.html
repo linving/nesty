@@ -256,34 +256,45 @@
 
         <span class="pl-k">return</span> response;
     }   
-}
+}</pre></div>
 
+<ul>
+<li>More examples </li>
+</ul>
 
+<p>Please visit <a href="https://github.com/gugemichael/nesty/wiki/More-Examples">https://github.com/gugemichael/nesty/wiki/More-Examples</a></p>
 
-<span class="pl-smi">More</span> examples. <span class="pl-smi">Please</span> visit https<span class="pl-k">:</span><span class="pl-c">//github.com/gugemichael/nesty/wiki/More-Examples</span>
+<h2>
+<a id="threads-model" class="anchor" href="#threads-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Threads Model</h2>
 
-## <span class="pl-smi">Threads</span> <span class="pl-smi">Model</span>
+<ul>
+<li>Netty Bootstrap(io threads) + ThreadPool(logic threads)</li>
+</ul>
 
-<span class="pl-k">*</span> <span class="pl-smi">Netty</span> Bootstrap(io threads) <span class="pl-k">+</span> ThreadPool(logic threads)
+<p><img src="http://img1.tbcdn.cn/L1/461/1/40ef4fb553fb9b565ddf79989a6f17877dcb3de7" alt="screenshot"></p>
 
-<span class="pl-k">!</span>[screenshot](http<span class="pl-k">:</span><span class="pl-c">//img1.tbcdn.cn/L1/461/1/40ef4fb553fb9b565ddf79989a6f17877dcb3de7)</span>
+<h2>
+<a id="performance" class="anchor" href="#performance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Performance</h2>
 
-## <span class="pl-smi">Performance</span>
+<p>java -server -Xmx4G -Xms4G -Xmn1536M -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:PermSize=256m -XX:MaxPermSize=256m -XX:+DisableExplicitGC</p>
 
-java <span class="pl-k">-</span>server <span class="pl-k">-</span><span class="pl-smi">Xmx4G</span> <span class="pl-k">-</span><span class="pl-smi">Xms4G</span> <span class="pl-k">-</span><span class="pl-smi">Xmn1536M</span> <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-k">+</span><span class="pl-smi">UseConcMarkSweepGC</span> <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-k">+</span><span class="pl-smi">UseParNewGC</span> <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-smi">PermSize</span><span class="pl-k">=</span>256m <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-smi">MaxPermSize</span><span class="pl-k">=</span>256m <span class="pl-k">-</span><span class="pl-c1">XX</span><span class="pl-k">:</span><span class="pl-k">+</span><span class="pl-smi">DisableExplicitGC</span>
+<p>Http short connection</p>
 
-<span class="pl-smi">Http</span> <span class="pl-k">short</span> connection
-<span class="pl-k">*</span> <span class="pl-smi">Conccurent</span> <span class="pl-k">:</span> <span class="pl-c1">512</span> http connections 
-<span class="pl-k">*</span> <span class="pl-smi">Qps</span> <span class="pl-k">:</span> <span class="pl-c1">40</span>,<span class="pl-c1">000</span><span class="pl-k">+</span>
-<span class="pl-k">*</span> <span class="pl-smi">Latency</span> <span class="pl-k">:</span> <span class="pl-k">&lt;</span> 10ms
+<ul>
+<li>Conccurent : 512 http connections </li>
+<li>Qps : 40,000+</li>
+<li>Latency : &lt; 10ms</li>
+</ul>
 
-<span class="pl-smi">Http</span> <span class="pl-k">long</span> connection (<span class="pl-smi">Connection</span><span class="pl-k">:</span> keep<span class="pl-k">-</span>alive)
-<span class="pl-k">*</span> <span class="pl-smi">Conccurent</span> <span class="pl-k">:</span> <span class="pl-c1">512</span> http connections 
-<span class="pl-k">*</span> <span class="pl-smi">Qps</span> <span class="pl-k">:</span> <span class="pl-c1">80</span>,<span class="pl-c1">000</span> <span class="pl-k">~</span> <span class="pl-c1">100</span>,<span class="pl-c1">000</span>
-<span class="pl-k">*</span> <span class="pl-smi">Latency</span> <span class="pl-k">:</span> <span class="pl-k">&lt;</span> 50ms
+<p>Http long connection (Connection: keep-alive)</p>
 
-detail <span class="pl-k">:</span> https<span class="pl-k">:</span><span class="pl-c">//github.com/gugemichael/nesty/wiki/Performance-Detail</span>
-</pre></div>
+<ul>
+<li>Conccurent : 512 http connections </li>
+<li>Qps : 80,000 ~ 100,000</li>
+<li>Latency : &lt; 50ms</li>
+</ul>
+
+<p>detail : <a href="https://github.com/gugemichael/nesty/wiki/Performance-Detail">https://github.com/gugemichael/nesty/wiki/Performance-Detail</a></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/gugemichael/nesty">Nesty</a> is maintained by <a href="https://github.com/gugemichael">gugemichael</a>.</span>
